@@ -1,5 +1,5 @@
 function copyResult() {
-  if (!display.value || display.value === "Erro") return;
+  if (!display || !display.value || display.value === "Erro") return;
 
   navigator.clipboard.writeText(display.value);
 
@@ -17,8 +17,7 @@ function toggleTheme() {
   localStorage.setItem("theme", isLight ? "light" : "dark");
 }
 
-/* INIT */
-(function () {
+document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
 
   if (savedTheme === "light") {
@@ -26,4 +25,4 @@ function toggleTheme() {
   }
 
   renderHistory();
-})();
+});
