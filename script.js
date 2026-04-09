@@ -3,7 +3,10 @@ const historyList = document.getElementById("history-list");
 
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
+/* ===================== */
 /* HISTÓRICO */
+/* ===================== */
+
 function saveHistory() {
   localStorage.setItem("history", JSON.stringify(history));
 }
@@ -18,7 +21,10 @@ function renderHistory() {
   });
 }
 
+/* ===================== */
 /* INPUT */
+/* ===================== */
+
 function append(value) {
   if (display.value === "Erro") {
     display.value = "";
@@ -48,15 +54,82 @@ function deleteLast() {
   display.value = display.value.slice(0, -1);
 }
 
+/* ===================== */
+/* PARSER SEGURO */
+/* ===================== */
+
+function tokenize(expression) {
+  return expression.match(/(\d+\.?\d*|\+|\-|\*|\/)/g);
+}
+
+function precedence(op) {
+  if (op === "+" || op === "-") return 1;
+  if (op === "*" || op === "/") return 2;
+  return 0;
+}
+
+function applyOperation(a, b, op) {
+  a = parseFloat(a);
+  b = parseFloat(b);
+
+  if (op === "+") return a + b;
+  if (op === "-") return a - b;
+  if (op === "*") return a * b;
+  if (op === "/") return b === 0 ? "Erro" : a / b;
+}
+
+function evaluateExpression(expression) {
+  const tokens = tokenize(expression);
+  if (!tokens) return "Erro";
+
+  const values = [];
+  const ops = [];
+
+  for (let token of tokens) {
+    if (!isNaN(token)) {
+      values.push(token);
+    } else {
+      while (
+        ops.length &&
+        precedence(ops[ops.length - 1]) >= precedence(token)
+      ) {
+        const val2 = values.pop();
+        const val1 = values.pop();
+        const op = ops.pop();
+        const result = applyOperation(val1, val2, op);
+
+        if (result === "Erro") return "Erro";
+        values.push(result);
+      }
+      ops.push(token);
+    }
+  }
+
+  while (ops.length) {
+    const val2 = values.pop();
+    const val1 = values.pop();
+    const op = ops.pop();
+    const result = applyOperation(val1, val2, op);
+
+    if (result === "Erro") return "Erro";
+    values.push(result);
+  }
+
+  return values[0];
+}
+
+/* ===================== */
 /* CALCULAR */
+/* ===================== */
+
 function calculate() {
   try {
     if (display.value === "") return;
 
     let expression = display.value;
-    let result = eval(expression);
+    let result = evaluateExpression(expression);
 
-    if (!isFinite(result)) {
+    if (result === "Erro" || !isFinite(result)) {
       display.value = "Erro";
       display.style.color = "red";
       return;
@@ -80,7 +153,10 @@ function calculate() {
   }
 }
 
+/* ===================== */
 /* TECLADO */
+/* ===================== */
+
 document.addEventListener("keydown", function (event) {
   const key = event.key;
 
@@ -97,7 +173,10 @@ document.addEventListener("keydown", function (event) {
   if (key === "Escape") clearDisplay();
 });
 
+/* ===================== */
 /* COPIAR */
+/* ===================== */
+
 function copyResult() {
   if (!display.value || display.value === "Erro") return;
 
@@ -110,7 +189,10 @@ function copyResult() {
   }, 500);
 }
 
+/* ===================== */
 /* TEMA */
+/* ===================== */
+
 function toggleTheme() {
   document.body.classList.toggle("light");
 
@@ -126,5 +208,8 @@ function toggleTheme() {
   }
 })();
 
+/* ===================== */
 /* INIT */
+/* ===================== */
+
 renderHistory();
