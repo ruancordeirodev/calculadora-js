@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora V3</title>
+  <title>Calculadora V5</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,9 +11,15 @@
 
     <div class="calculator">
 
+      <!-- TOGGLE TEMA -->
+      <button onclick="toggleTheme()" class="theme-toggle">🌙 Alternar Tema</button>
+
       <div class="display-container">
         <input type="text" id="display" readonly placeholder="0">
       </div>
+
+      <!-- COPIAR -->
+      <button onclick="copyResult()" class="copy">Copiar</button>
 
       <div class="buttons">
         <button onclick="clearDisplay()" class="clear">C</button>

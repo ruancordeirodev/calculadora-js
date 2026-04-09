@@ -7,13 +7,11 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* Container geral */
 .container {
   display: flex;
   gap: 20px;
 }
 
-/* Calculadora */
 .calculator {
   background: #222;
   padding: 20px;
@@ -22,7 +20,7 @@ body {
 }
 
 .display-container {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 #display {
@@ -40,7 +38,32 @@ body {
   letter-spacing: 1px;
 }
 
-/* Botões */
+/* BOTÃO TEMA */
+.theme-toggle {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 40px;
+  background: #444;
+}
+
+.theme-toggle:hover {
+  background: #666;
+}
+
+/* BOTÃO COPIAR */
+.copy {
+  width: 100%;
+  margin-bottom: 10px;
+  height: 45px;
+  background: #007bff;
+  border-radius: 6px;
+}
+
+.copy:hover {
+  background: #0069d9;
+}
+
+/* BOTÕES */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -66,7 +89,6 @@ button:active {
   transform: scale(0.95);
 }
 
-/* Operadores */
 .operator {
   background: #ff9500;
 }
@@ -75,7 +97,6 @@ button:active {
   background: #e08900;
 }
 
-/* Limpar */
 .clear {
   background: #dc3545;
 }
@@ -84,7 +105,6 @@ button:active {
   background: #c82333;
 }
 
-/* Igual */
 .equal {
   background: #28a745;
 }
@@ -93,12 +113,11 @@ button:active {
   background: #218838;
 }
 
-/* Zero */
 .zero {
   grid-column: span 2;
 }
 
-/* Histórico */
+/* HISTÓRICO */
 .history {
   background: #1a1a1a;
   padding: 15px;
@@ -109,7 +128,6 @@ button:active {
 
 .history h3 {
   margin-bottom: 10px;
-  font-size: 16px;
 }
 
 #history-list {
@@ -124,4 +142,47 @@ button:active {
   margin-bottom: 5px;
   border-bottom: 1px solid #333;
   padding-bottom: 3px;
+}
+
+/* LIGHT MODE */
+body.light {
+  background: #f1f1f1;
+}
+
+body.light .calculator {
+  background: #fff;
+}
+
+body.light #display {
+  background: #eaeaea;
+  color: #000;
+}
+
+body.light button {
+  background: #ddd;
+  color: #000;
+}
+
+body.light button:hover {
+  background: #bbb;
+}
+
+body.light .history {
+  background: #fff;
+  color: #000;
+}
+
+body.light .operator {
+  background: #ff9500;
+  color: white;
+}
+
+body.light .equal {
+  background: #28a745;
+  color: white;
+}
+
+body.light .clear {
+  background: #dc3545;
+  color: white;
 }

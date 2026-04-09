@@ -3,6 +3,7 @@ const historyList = document.getElementById("history-list");
 
 let history = JSON.parse(localStorage.getItem("history")) || [];
 
+/* HISTÓRICO */
 function saveHistory() {
   localStorage.setItem("history", JSON.stringify(history));
 }
@@ -17,6 +18,7 @@ function renderHistory() {
   });
 }
 
+/* INPUT */
 function append(value) {
   if (display.value === "Erro") {
     display.value = "";
@@ -46,6 +48,7 @@ function deleteLast() {
   display.value = display.value.slice(0, -1);
 }
 
+/* CALCULAR */
 function calculate() {
   try {
     if (display.value === "") return;
@@ -77,7 +80,7 @@ function calculate() {
   }
 }
 
-/* TECLADO FÍSICO */
+/* TECLADO */
 document.addEventListener("keydown", function (event) {
   const key = event.key;
 
@@ -85,25 +88,16 @@ document.addEventListener("keydown", function (event) {
     append(key);
   }
 
-  if (key === ".") {
-    append(".");
-  }
-
+  if (key === ".") append(".");
   if (key === "Enter") {
     event.preventDefault();
     calculate();
   }
-
-  if (key === "Backspace") {
-    deleteLast();
-  }
-
-  if (key === "Escape") {
-    clearDisplay();
-  }
+  if (key === "Backspace") deleteLast();
+  if (key === "Escape") clearDisplay();
 });
 
-/* COPIAR RESULTADO */
+/* COPIAR */
 function copyResult() {
   if (!display.value || display.value === "Erro") return;
 
@@ -116,5 +110,21 @@ function copyResult() {
   }, 500);
 }
 
-/* INICIALIZA */
+/* TEMA */
+function toggleTheme() {
+  document.body.classList.toggle("light");
+
+  const isLight = document.body.classList.contains("light");
+  localStorage.setItem("theme", isLight ? "light" : "dark");
+}
+
+(function () {
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme === "light") {
+    document.body.classList.add("light");
+  }
+})();
+
+/* INIT */
 renderHistory();
