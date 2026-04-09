@@ -62,10 +62,8 @@ function calculate() {
     display.value = result;
     display.style.color = "#0f0";
 
-    // salvar histórico
     history.push(`${expression} = ${result}`);
 
-    // limitar histórico
     if (history.length > 10) {
       history.shift();
     }
@@ -79,5 +77,44 @@ function calculate() {
   }
 }
 
-// carregar histórico ao abrir
+/* TECLADO FÍSICO */
+document.addEventListener("keydown", function (event) {
+  const key = event.key;
+
+  if (!isNaN(key) || ["+", "-", "*", "/"].includes(key)) {
+    append(key);
+  }
+
+  if (key === ".") {
+    append(".");
+  }
+
+  if (key === "Enter") {
+    event.preventDefault();
+    calculate();
+  }
+
+  if (key === "Backspace") {
+    deleteLast();
+  }
+
+  if (key === "Escape") {
+    clearDisplay();
+  }
+});
+
+/* COPIAR RESULTADO */
+function copyResult() {
+  if (!display.value || display.value === "Erro") return;
+
+  navigator.clipboard.writeText(display.value);
+
+  display.style.color = "#00ffcc";
+
+  setTimeout(() => {
+    display.style.color = "#0f0";
+  }, 500);
+}
+
+/* INICIALIZA */
 renderHistory();
