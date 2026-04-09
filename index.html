@@ -2,40 +2,50 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora V2</title>
+  <title>Calculadora V3</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div class="calculator">
+  <div class="container">
 
-    <div class="display-container">
-      <input type="text" id="display" readonly placeholder="0">
+    <div class="calculator">
+
+      <div class="display-container">
+        <input type="text" id="display" readonly placeholder="0">
+      </div>
+
+      <div class="buttons">
+        <button onclick="clearDisplay()" class="clear">C</button>
+        <button onclick="deleteLast()">←</button>
+        <button onclick="append('/')" class="operator">÷</button>
+        <button onclick="append('*')" class="operator">×</button>
+
+        <button onclick="append('7')">7</button>
+        <button onclick="append('8')">8</button>
+        <button onclick="append('9')">9</button>
+        <button onclick="append('-')" class="operator">−</button>
+
+        <button onclick="append('4')">4</button>
+        <button onclick="append('5')">5</button>
+        <button onclick="append('6')">6</button>
+        <button onclick="append('+')" class="operator">+</button>
+
+        <button onclick="append('1')">1</button>
+        <button onclick="append('2')">2</button>
+        <button onclick="append('3')">3</button>
+        <button onclick="calculate()" class="equal">=</button>
+
+        <button onclick="append('0')" class="zero">0</button>
+        <button onclick="append('.')">.</button>
+      </div>
+
     </div>
 
-    <div class="buttons">
-      <button onclick="clearDisplay()" class="clear">C</button>
-      <button onclick="deleteLast()">←</button>
-      <button onclick="append('/')" class="operator">÷</button>
-      <button onclick="append('*')" class="operator">×</button>
-
-      <button onclick="append('7')">7</button>
-      <button onclick="append('8')">8</button>
-      <button onclick="append('9')">9</button>
-      <button onclick="append('-')" class="operator">−</button>
-
-      <button onclick="append('4')">4</button>
-      <button onclick="append('5')">5</button>
-      <button onclick="append('6')">6</button>
-      <button onclick="append('+')" class="operator">+</button>
-
-      <button onclick="append('1')">1</button>
-      <button onclick="append('2')">2</button>
-      <button onclick="append('3')">3</button>
-      <button onclick="calculate()" class="equal">=</button>
-
-      <button onclick="append('0')" class="zero">0</button>
-      <button onclick="append('.')">.</button>
+    <!-- HISTÓRICO -->
+    <div class="history">
+      <h3>Histórico</h3>
+      <ul id="history-list"></ul>
     </div>
 
   </div>
