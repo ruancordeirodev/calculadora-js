@@ -1,15 +1,25 @@
+// ======================
+// COPY RESULT
+// ======================
 function copyResult() {
   if (!display || !display.value || display.value === "Erro") return;
 
-  navigator.clipboard.writeText(display.value);
+  navigator.clipboard.writeText(display.value)
+    .then(() => {
+      display.style.color = "#00ffcc";
 
-  display.style.color = "#00ffcc";
-
-  setTimeout(() => {
-    display.style.color = "#0f0";
-  }, 500);
+      setTimeout(() => {
+        display.style.color = "#0f0";
+      }, 500);
+    })
+    .catch(() => {
+      console.warn("Falha ao copiar");
+    });
 }
 
+// ======================
+// THEME TOGGLE
+// ======================
 function toggleTheme() {
   document.body.classList.toggle("light");
 
@@ -17,6 +27,9 @@ function toggleTheme() {
   localStorage.setItem("theme", isLight ? "light" : "dark");
 }
 
+// ======================
+// INIT
+// ======================
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
 
@@ -26,3 +39,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderHistory();
 });
+
+// ======================
+// SERVICE WORKER (PWA)
+// ======================
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("./service-worker.js")
+      .then(() => console.log("PWA ativo"))
+      .catch(err => console.log("Erro SW:", err));
+  });
+}

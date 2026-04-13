@@ -2,46 +2,53 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8">
-  <title>Calculadora V7</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Pro | PWA</title>
+
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#111111">
 </head>
+
 <body>
 
   <div class="container">
 
     <div class="calculator">
 
-      <button onclick="toggleTheme()" class="theme-toggle">🌙 Alternar Tema</button>
+      <button id="theme-toggle" class="theme-toggle">🌙 Alternar Tema</button>
 
       <div class="display-container">
         <input type="text" id="display" readonly placeholder="0">
       </div>
 
-      <button onclick="copyResult()" class="copy">Copiar</button>
+      <button id="copy" class="copy">Copiar</button>
 
       <div class="buttons">
-        <button onclick="clearDisplay()" class="clear">C</button>
-        <button onclick="deleteLast()">←</button>
-        <button onclick="appendValue('/')" class="operator">÷</button>
-        <button onclick="appendValue('*')" class="operator">×</button>
 
-        <button onclick="appendValue('7')">7</button>
-        <button onclick="appendValue('8')">8</button>
-        <button onclick="appendValue('9')">9</button>
-        <button onclick="appendValue('-')" class="operator">−</button>
+        <button class="btn clear">C</button>
+        <button class="btn delete">←</button>
+        <button class="btn operator">/</button>
+        <button class="btn operator">*</button>
 
-        <button onclick="appendValue('4')">4</button>
-        <button onclick="appendValue('5')">5</button>
-        <button onclick="appendValue('6')">6</button>
-        <button onclick="appendValue('+')" class="operator">+</button>
+        <button class="btn">7</button>
+        <button class="btn">8</button>
+        <button class="btn">9</button>
+        <button class="btn operator">-</button>
 
-        <button onclick="appendValue('1')">1</button>
-        <button onclick="appendValue('2')">2</button>
-        <button onclick="appendValue('3')">3</button>
-        <button onclick="handleCalculate()" class="equal">=</button>
+        <button class="btn">4</button>
+        <button class="btn">5</button>
+        <button class="btn">6</button>
+        <button class="btn operator">+</button>
 
-        <button onclick="appendValue('0')" class="zero">0</button>
-        <button onclick="appendValue('.')">.</button>
+        <button class="btn">1</button>
+        <button class="btn">2</button>
+        <button class="btn">3</button>
+        <button class="btn equal">=</button>
+
+        <button class="btn zero">0</button>
+        <button class="btn">.</button>
+
       </div>
 
     </div>
@@ -53,7 +60,6 @@
 
   </div>
 
-  <!-- CORREÇÃO: uso de defer -->
   <script src="js/calculator.js" defer></script>
   <script src="js/history.js" defer></script>
   <script src="js/ui.js" defer></script>

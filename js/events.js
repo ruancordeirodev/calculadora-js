@@ -1,3 +1,47 @@
+// ======================
+// BOTÕES (CLIQUE)
+// ======================
+
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".btn");
+  const themeBtn = document.getElementById("theme-toggle");
+  const copyBtn = document.getElementById("copy");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const value = btn.textContent;
+
+      if (btn.classList.contains("clear")) {
+        clearDisplay();
+        return;
+      }
+
+      if (btn.classList.contains("delete")) {
+        deleteLast();
+        return;
+      }
+
+      if (btn.classList.contains("equal")) {
+        handleCalculate();
+        return;
+      }
+
+      appendValue(value);
+    });
+  });
+
+  // botão tema
+  themeBtn.addEventListener("click", toggleTheme);
+
+  // botão copiar
+  copyBtn.addEventListener("click", copyResult);
+});
+
+
+// ======================
+// CÁLCULO
+// ======================
+
 function handleCalculate() {
   const expression = display.value;
   const result = evaluateExpression(expression);
@@ -10,6 +54,11 @@ function handleCalculate() {
   updateDisplay(result);
   addToHistory(`${expression} = ${result}`);
 }
+
+
+// ======================
+// TECLADO
+// ======================
 
 document.addEventListener("keydown", (event) => {
   if (!display) return;
