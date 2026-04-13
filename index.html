@@ -9,62 +9,68 @@
   <link rel="manifest" href="./manifest.json">
   <meta name="theme-color" content="#111111">
 </head>
-
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <div class="calculator">
+  <div class="calculator">
 
-      <button id="theme-toggle" class="theme-toggle">🌙 Alternar Tema</button>
+    <button onclick="toggleTheme()" class="theme-toggle">Tema</button>
 
-      <div class="display-container">
-        <input type="text" id="display" readonly placeholder="0">
-      </div>
-
-      <button id="copy" class="copy">Copiar</button>
-
-      <div class="buttons">
-
-        <button class="btn clear">C</button>
-        <button class="btn delete">←</button>
-        <button class="btn operator">/</button>
-        <button class="btn operator">*</button>
-
-        <button class="btn">7</button>
-        <button class="btn">8</button>
-        <button class="btn">9</button>
-        <button class="btn operator">-</button>
-
-        <button class="btn">4</button>
-        <button class="btn">5</button>
-        <button class="btn">6</button>
-        <button class="btn operator">+</button>
-
-        <button class="btn">1</button>
-        <button class="btn">2</button>
-        <button class="btn">3</button>
-        <button class="btn equal">=</button>
-
-        <button class="btn zero">0</button>
-        <button class="btn">.</button>
-
-      </div>
-
+    <div class="display-container">
+      <div id="operation"></div>
+      <input type="text" id="display" readonly placeholder="0">
     </div>
 
-    <div class="history">
-      <h3>Histórico</h3>
-      <ul id="history-list"></ul>
+    <button onclick="copyResult()" class="copy">Copiar</button>
+
+    <div class="buttons">
+
+      <!-- NOVOS -->
+      <button onclick="applyFunction('sqrt')">√</button>
+      <button onclick="applyFunction('square')">x²</button>
+      <button onclick="applyFunction('inverse')">1/x</button>
+      <button onclick="applyFunction('percent')">%</button>
+
+      <button onclick="clearDisplay()" class="clear">C</button>
+      <button onclick="deleteLast()">←</button>
+      <button onclick="appendValue('/')" class="operator">÷</button>
+      <button onclick="appendValue('*')" class="operator">×</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button onclick="appendValue('-')" class="operator">−</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button onclick="appendValue('+')" class="operator">+</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button onclick="handleCalculate()" class="equal">=</button>
+
+      <button onclick="appendValue('0')" class="zero">0</button>
+      <button onclick="appendValue('.')">.</button>
+
     </div>
 
   </div>
 
-  <script src="js/calculator.js" defer></script>
-  <script src="js/history.js" defer></script>
-  <script src="js/ui.js" defer></script>
-  <script src="js/events.js" defer></script>
-  <script src="js/main.js" defer></script>
+  <div class="history">
+    <h3>Histórico</h3>
+    <ul id="history-list"></ul>
+  </div>
+
+</div>
+
+<script src="js/calculator.js" defer></script>
+<script src="js/history.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/events.js" defer></script>
+<script src="js/main.js" defer></script>
 
 </body>
 </html>

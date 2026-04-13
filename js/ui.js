@@ -1,16 +1,14 @@
-let display;
+let display, operationEl;
 
 document.addEventListener("DOMContentLoaded", () => {
   display = document.getElementById("display");
+  operationEl = document.getElementById("operation");
 
-  // último resultado salvo
   const last = localStorage.getItem("lastResult");
   if (last) display.value = last;
 });
 
 function updateDisplay(value, color = "#00ffcc") {
-  if (!display) return;
-
   display.value = value;
   display.style.color = color;
 
@@ -18,21 +16,19 @@ function updateDisplay(value, color = "#00ffcc") {
     localStorage.setItem("lastResult", value);
   }
 
-  // animação de resultado
   display.classList.add("result");
   setTimeout(() => display.classList.remove("result"), 250);
 }
 
-function appendValue(value) {
-  if (!display) return;
+function setOperation(text) {
+  if (operationEl) operationEl.textContent = text;
+}
 
+function appendValue(value) {
   if (display.value === "Erro") updateDisplay("");
 
-  const valid = "0123456789+-*/.";
-  if (!valid.includes(value)) return;
-
-  const last = display.value.slice(-1);
   const ops = ["+", "-", "*", "/"];
+  const last = display.value.slice(-1);
 
   if (ops.includes(last) && ops.includes(value)) return;
 
@@ -46,10 +42,10 @@ function appendValue(value) {
 
 function clearDisplay() {
   updateDisplay("");
+  setOperation("");
 }
 
 function deleteLast() {
-  if (!display) return;
   display.value = display.value.slice(0, -1);
 }
 
@@ -58,4 +54,38 @@ function showError() {
 
   display.classList.add("shake");
   setTimeout(() => display.classList.remove("shake"), 300);
+}
+
+/* 🔥 NOVAS FUNÇÕES */
+function applyFunction(type) {
+  let value = parseFloat(display.value);
+  if (isNaN(value)) return;
+
+  let result;
+
+  switch (type) {
+    case "sqrt":
+      result = value < 0 ? "Erro" : Math.sqrt(value);
+      setOperation(`√(${value})`);
+      break;
+
+    case "square":
+      result = value * value;
+      setOperation(`${value}²`);
+      break;
+
+    case "inverse":
+      result = value === 0 ? "Erro" : 1 / value;
+      setOperation(`1/${value}`);
+      break;
+
+    case "percent":
+      result = value / 100;
+      setOperation(`${value}%`);
+      break;
+  }
+
+  if (result === "Erro") return showError();
+
+  updateDisplay(result);
 }
