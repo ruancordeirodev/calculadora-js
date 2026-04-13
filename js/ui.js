@@ -1,54 +1,49 @@
 let display;
 
-// ======================
-// INIT
-// ======================
 document.addEventListener("DOMContentLoaded", () => {
   display = document.getElementById("display");
+
+  // último resultado salvo
+  const last = localStorage.getItem("lastResult");
+  if (last) display.value = last;
 });
 
-// ======================
-// DISPLAY CONTROL
-// ======================
-function updateDisplay(value, color = "#0f0") {
+function updateDisplay(value, color = "#00ffcc") {
   if (!display) return;
 
   display.value = value;
   display.style.color = color;
+
+  if (value !== "Erro") {
+    localStorage.setItem("lastResult", value);
+  }
+
+  // animação de resultado
+  display.classList.add("result");
+  setTimeout(() => display.classList.remove("result"), 250);
 }
 
-// ======================
-// INPUT CONTROL
-// ======================
 function appendValue(value) {
   if (!display) return;
 
-  if (display.value === "Erro") {
-    updateDisplay("");
-  }
+  if (display.value === "Erro") updateDisplay("");
 
-  const validChars = "0123456789+-*/.";
-  if (!validChars.includes(value)) return;
+  const valid = "0123456789+-*/.";
+  if (!valid.includes(value)) return;
 
-  const lastChar = display.value.slice(-1);
-  const operators = ["+", "-", "*", "/"];
+  const last = display.value.slice(-1);
+  const ops = ["+", "-", "*", "/"];
 
-  // evita operador duplicado
-  if (operators.includes(lastChar) && operators.includes(value)) return;
+  if (ops.includes(last) && ops.includes(value)) return;
 
-  // evita múltiplos pontos no mesmo número
   if (value === ".") {
     const parts = display.value.split(/[\+\-\*\/]/);
-    const lastNumber = parts[parts.length - 1];
-    if (lastNumber.includes(".")) return;
+    if (parts.at(-1).includes(".")) return;
   }
 
   display.value += value;
 }
 
-// ======================
-// ACTIONS
-// ======================
 function clearDisplay() {
   updateDisplay("");
 }
@@ -56,4 +51,11 @@ function clearDisplay() {
 function deleteLast() {
   if (!display) return;
   display.value = display.value.slice(0, -1);
+}
+
+function showError() {
+  updateDisplay("Erro", "#ff453a");
+
+  display.classList.add("shake");
+  setTimeout(() => display.classList.remove("shake"), 300);
 }

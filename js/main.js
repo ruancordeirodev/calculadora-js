@@ -1,25 +1,9 @@
-// ======================
-// COPY RESULT
-// ======================
 function copyResult() {
   if (!display || !display.value || display.value === "Erro") return;
 
-  navigator.clipboard.writeText(display.value)
-    .then(() => {
-      display.style.color = "#00ffcc";
-
-      setTimeout(() => {
-        display.style.color = "#0f0";
-      }, 500);
-    })
-    .catch(() => {
-      console.warn("Falha ao copiar");
-    });
+  navigator.clipboard.writeText(display.value).catch(() => {});
 }
 
-// ======================
-// THEME TOGGLE
-// ======================
 function toggleTheme() {
   document.body.classList.toggle("light");
 
@@ -27,27 +11,24 @@ function toggleTheme() {
   localStorage.setItem("theme", isLight ? "light" : "dark");
 }
 
-// ======================
-// INIT
-// ======================
+// 🔊 SOM
+const clickSound = new Audio("https://www.soundjay.com/buttons/sounds/button-16.mp3");
+
+function playClick() {
+  try {
+    clickSound.currentTime = 0;
+    clickSound.play();
+  } catch {}
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme");
-
-  if (savedTheme === "light") {
-    document.body.classList.add("light");
-  }
+  if (savedTheme === "light") document.body.classList.add("light");
 
   renderHistory();
 });
 
-// ======================
-// SERVICE WORKER (PWA)
-// ======================
+// PWA
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("./service-worker.js")
-      .then(() => console.log("PWA ativo"))
-      .catch(err => console.log("Erro SW:", err));
-  });
+  navigator.serviceWorker.register("./service-worker.js");
 }

@@ -1,205 +1,185 @@
-/* RESET BÁSICO */
+/* RESET */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
+/* BODY */
 body {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #111;
-  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1a1a1a, #0a0a0a);
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 /* CONTAINER */
 .container {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap; /* 🔥 permite quebrar no mobile */
-  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 /* CALCULADORA */
 .calculator {
-  background: #222;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 0 25px rgba(0,0,0,0.6);
+  width: 340px;
+  padding: 25px;
+  border-radius: 24px;
+
+  background: linear-gradient(145deg, #1c1c1e, #111);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05);
 }
 
 /* DISPLAY */
-.display-container {
-  margin-bottom: 10px;
-}
-
 #display {
   width: 100%;
-  height: 60px;
-  font-size: 26px;
+  height: 90px;
+  font-size: 42px;
   text-align: right;
-  padding: 10px;
   border: none;
   outline: none;
-  background: #000;
-  color: #0f0;
-  border-radius: 6px;
-  font-weight: bold;
+  background: transparent;
+  color: #00ffcc;
+  margin-bottom: 25px;
+  font-weight: 300;
+  letter-spacing: 1px;
 }
 
-/* BOTÃO TEMA */
-.theme-toggle {
-  width: 100%;
-  margin-bottom: 10px;
-  height: 40px;
-  background: #444;
-}
-
-.theme-toggle:hover {
-  background: #666;
-}
-
-/* BOTÃO COPIAR */
+/* BOTÕES SUPERIORES */
+.theme-toggle,
 .copy {
   width: 100%;
-  margin-bottom: 10px;
   height: 45px;
-  background: #007bff;
-  border-radius: 6px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: white;
 }
 
-.copy:hover {
-  background: #0069d9;
-}
-
-/* BOTÕES */
+/* GRID BOTÕES */
 .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
+  gap: 14px;
 }
 
+/* BOTÕES BASE */
 button {
-  height: 55px;
-  font-size: 18px;
-  cursor: pointer;
+  height: 70px;
+  border-radius: 18px;
   border: none;
-  background: #333;
+  font-size: 20px;
+  cursor: pointer;
+
+  background: linear-gradient(145deg, #2a2a2e, #1c1c1e);
+
+  box-shadow:
+    0 6px 12px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
   color: white;
-  border-radius: 6px;
+
   transition: all 0.15s ease;
 }
 
+/* HOVER */
 button:hover {
-  background: #555;
+  transform: translateY(-2px);
 }
 
+/* CLICK */
 button:active {
   transform: scale(0.95);
+  box-shadow:
+    inset 0 4px 10px rgba(0,0,0,0.7);
 }
 
 /* CORES */
 .operator {
-  background: #ff9500;
-}
-
-.operator:hover {
-  background: #e08900;
-}
-
-.clear {
-  background: #dc3545;
-}
-
-.clear:hover {
-  background: #c82333;
+  background: linear-gradient(145deg, #ff9f0a, #cc7a00);
 }
 
 .equal {
-  background: #28a745;
+  background: linear-gradient(145deg, #30d158, #1ea94b);
 }
 
-.equal:hover {
-  background: #218838;
+.clear {
+  background: linear-gradient(145deg, #ff453a, #c92f25);
 }
 
+/* ZERO */
 .zero {
   grid-column: span 2;
+  border-radius: 40px;
 }
 
 /* HISTÓRICO */
 .history {
-  background: #1a1a1a;
-  padding: 15px;
-  border-radius: 10px;
-  color: white;
   width: 260px;
+  padding: 20px;
+  border-radius: 20px;
+
+  background: linear-gradient(145deg, #1c1c1e, #111);
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  color: white;
 }
 
 .history h3 {
   margin-bottom: 10px;
+  font-weight: 500;
 }
 
 #history-list {
   list-style: none;
-  padding: 0;
-  max-height: 200px;
+  max-height: 250px;
   overflow-y: auto;
 }
 
 #history-list li {
+  padding: 8px;
+  border-radius: 8px;
   font-size: 14px;
-  margin-bottom: 5px;
-  border-bottom: 1px solid #333;
-  padding-bottom: 3px;
+  opacity: 0.8;
+  transition: 0.2s;
+}
+
+#history-list li:hover {
+  background: rgba(255,255,255,0.05);
+  opacity: 1;
+  cursor: pointer;
 }
 
 /* LIGHT MODE */
 body.light {
-  background: #f1f1f1;
+  background: #f2f2f7;
 }
 
-body.light .calculator {
-  background: #fff;
+body.light .calculator,
+body.light .history {
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
 }
 
 body.light #display {
-  background: #eaeaea;
-  color: #000;
+  color: black;
 }
 
 body.light button {
-  background: #ddd;
-  color: #000;
+  background: #e5e5ea;
+  color: black;
+  box-shadow: none;
 }
 
-body.light button:hover {
-  background: #bbb;
-}
-
-body.light .history {
-  background: #fff;
-  color: #000;
-}
-
-body.light .operator {
-  background: #ff9500;
-  color: white;
-}
-
-body.light .equal {
-  background: #28a745;
-  color: white;
-}
-
-body.light .clear {
-  background: #dc3545;
-  color: white;
-}
-
-/* 📱 RESPONSIVO (IMPORTANTE) */
+/* RESPONSIVO */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
@@ -208,15 +188,43 @@ body.light .clear {
 
   .history {
     width: 100%;
-    max-width: 300px;
+    max-width: 320px;
   }
 
   button {
-    height: 50px;
-    font-size: 16px;
+    height: 60px;
+    font-size: 18px;
   }
 
   #display {
-    font-size: 22px;
+    font-size: 32px;
   }
+}
+
+/* ========================= */
+/* 🔥 ANIMAÇÕES (UX PREMIUM) */
+/* ========================= */
+
+/* RESULTADO */
+.result {
+  animation: pop 0.25s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+
+/* ERRO */
+.shake {
+  animation: shake 0.3s;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  50% { transform: translateX(6px); }
+  75% { transform: translateX(-6px); }
+  100% { transform: translateX(0); }
 }

@@ -1,37 +1,17 @@
-// ======================
-// INIT SAFE
-// ======================
 let history = [];
 
 try {
   const stored = JSON.parse(localStorage.getItem("history"));
-  if (Array.isArray(stored)) {
-    history = stored;
-  }
-} catch {
-  history = [];
-}
+  if (Array.isArray(stored)) history = stored;
+} catch {}
 
-// ======================
-// SAVE
-// ======================
 function saveHistory() {
-  try {
-    localStorage.setItem("history", JSON.stringify(history));
-  } catch {
-    console.warn("Erro ao salvar histórico");
-  }
+  localStorage.setItem("history", JSON.stringify(history));
 }
 
-// ======================
-// ADD
-// ======================
 function addToHistory(entry) {
-  if (!entry || typeof entry !== "string") return;
-
   history.push(entry);
 
-  // mantém limite real
   if (history.length > 10) {
     history = history.slice(-10);
   }
@@ -40,9 +20,6 @@ function addToHistory(entry) {
   renderHistory();
 }
 
-// ======================
-// RENDER
-// ======================
 function renderHistory() {
   const list = document.getElementById("history-list");
   if (!list) return;
@@ -52,6 +29,13 @@ function renderHistory() {
   [...history].reverse().forEach(item => {
     const li = document.createElement("li");
     li.textContent = item;
+
+    // 🔥 reutiliza cálculo
+    li.addEventListener("click", () => {
+      const value = item.split("=")[1]?.trim();
+      if (value) updateDisplay(value);
+    });
+
     list.appendChild(li);
   });
 }
